@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from fastapi import Depends, FastAPI
+from fastapi.responses import StreamingResponse
 import ollama
 from core.db import Base, engine
 from features.levels.repository import LevelRepository
@@ -35,3 +36,31 @@ async def prompt(prompt: Prompt, level_repository: LevelRepository = Depends()):
         count += 1
     print(f"{count} -> {current_content}")
     return current_content
+
+
+async def stream_generator(stream):
+    for chunk in stream:
+        yield chunk['response']
+
+
+@app.post("/prompt-stream")
+async def prompt_stream(
+    prompt: Prompt,
+    level_repository: LevelRepository = Depends()
+) -> StreamingResponse:
+    level = level_repository.get(prompt.level)
+    if level is None:
+        return "Level not found"
+    current_content = prompt.prompt
+    count = 0
+    models_number = len(level.models)
+    for model in level.models:
+        is_last = count == models_number-1
+        print(f"{count} -> {current_content}")
+        current_content = ollama.generate(
+            model.name, current_content, stream=is_last)
+        if not is_last:
+            current_content = current_content['response']
+        else:
+            return StreamingResponse(stream_generator(current_content))
+        count += 1
