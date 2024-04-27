@@ -27,12 +27,15 @@ export const Header = () => {
 const HeaderRoot = styled.div`
  display: flex;
  justify-content: space-around;
- span {
-   font-size: 40px;
+ span {   
+   display: flex; 
+   font-size: 35px;
+   color : #3d3dff;
+   margin: 25px 0px;
+
  }
  .sub-cont {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
  }
 `;

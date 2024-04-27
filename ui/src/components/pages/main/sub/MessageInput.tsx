@@ -45,13 +45,21 @@ const StyledForm = styled.form`
 
 const StyledButton = styled.button`
   border: none;
+  background-color: #3d3dff;
+  font-size:20px;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+
 `;
 
 const StyledInput = styled.input`
   background-color: #f3f3f3; /* Light grey background */
+  padding: 8px; 
+
   color: #333; /* Dark grey text */
-  border: 2px solid #ccc; /* Light grey border */
-  border-radius: 5px;
+  border: 2px solid lightblue; /* Light grey border */
+  border-radius: 10px;
   outline: none;
   width: 80%;
 `;
