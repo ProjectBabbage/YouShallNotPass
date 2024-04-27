@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import ollama
 from core.db import Base, engine
@@ -17,6 +18,14 @@ class Prompt:
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(models_router, prefix="/models", tags=["models"])
 app.include_router(levels_router, prefix="/levels", tags=["levels"])
