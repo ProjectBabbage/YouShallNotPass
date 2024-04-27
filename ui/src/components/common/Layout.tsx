@@ -5,6 +5,7 @@ import { theme } from "@/styles/theme";
 import { Stack } from "@/components/common/Stack";
 import { ReactNode } from "react";
 import { Header } from "../Header/Header";
+import { getClasses } from "@/utils/class";
 
 export interface LayoutProps extends PropsWithStyles {
   children: ReactNode;
@@ -12,15 +13,14 @@ export interface LayoutProps extends PropsWithStyles {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <LayoutRoot>
+    <StyledDiv className={getClasses("layout")}>
       <Header />
       {children}
-    </LayoutRoot>
+    </StyledDiv>
   );
 };
 
-/* ------------- Styled components ------------- */
-const LayoutRoot = styled.div`
-  display: flex;
-  flex-direction: column;
+const StyledDiv = styled.div`
+  position: relative;
+  min-height: 100vh;
 `;

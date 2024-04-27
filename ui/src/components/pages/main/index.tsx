@@ -4,8 +4,8 @@ import { Stack } from "@/components/common/Stack";
 import { Text } from "@/components/common/Text";
 import { theme } from "@/styles/theme";
 import reactLogo from "@/assets/images/react.svg";
-import { ConversationDisplay } from "@/components/pages/main/ConversationDisplay";
-import { MessageInput } from "@/components/pages/main/MessageInput";
+import { ConversationDisplay } from "@/components/pages/main/sub/ConversationDisplay";
+import { MessageInput } from "@/components/pages/main/sub/MessageInput";
 import { text } from "stream/consumers";
 
 export interface MainProps extends PropsWithStyles {}
@@ -17,16 +17,13 @@ export const Main = () => {
     { sender: "slfjk", text: "ls" },
     { sender: "slfjk", text: "ls" },
   ];
+
   return (
-    <MainRoot>
+    <>
       <ConversationDisplay messages={messages} />
       <MessageInput onSubmit={handleMessageSubmit} />
-    </MainRoot>
+    </>
   );
 };
 
 /* ------------- Styled components ------------- */
-const MainRoot = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
