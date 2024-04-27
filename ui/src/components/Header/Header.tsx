@@ -15,11 +15,24 @@ export const Header = () => {
   return (
     <HeaderRoot>
       <Text type="M">You Shall Not Pass (PB#5)</Text>
-      <HostInput onChange={handleHostnameChange} />
-      <ModelSelect onChange={handleModelChange} />
+      <div class="sub-cont">
+	<HostInput onChange={handleHostnameChange} />
+      	<ModelSelect onChange={handleModelChange} />
+      </div>
     </HeaderRoot>
   );
 };
 
 /* ------------- Styled components ------------- */
-const HeaderRoot = styled.div``;
+const HeaderRoot = styled.div`
+ display: flex;
+ justify-content: space-around;
+ span {
+   font-size: 40px;
+ }
+ .sub-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+ }
+`;
