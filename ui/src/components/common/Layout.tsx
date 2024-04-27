@@ -4,7 +4,7 @@ import { Text } from "@/components/common/Text";
 import { theme } from "@/styles/theme";
 import { Stack } from "@/components/common/Stack";
 import { ReactNode } from "react";
-import { Header } from "./Header/Header";
+import { Header } from "../Header/Header";
 
 export interface LayoutProps extends PropsWithStyles {
   children: ReactNode;
