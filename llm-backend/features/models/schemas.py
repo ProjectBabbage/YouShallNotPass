@@ -9,7 +9,7 @@ class ModelBase(BaseModel):
     system_prompt: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CreateModel(BaseModel):
