@@ -30,6 +30,7 @@ export const GuessPassword = () => {
   }, [debouncedGuess, api, selectedLevel]);
 
   return (
+    
     <GuessPasswordRoot direction="column" align="center">
       <LevelDescription>Description of level {selectedLevel}</LevelDescription>
       <Stack>
@@ -41,6 +42,7 @@ export const GuessPassword = () => {
         <GuessingStatus isGuessed={isGuessed} />
       </Stack>
     </GuessPasswordRoot>
+    
   );
 };
 

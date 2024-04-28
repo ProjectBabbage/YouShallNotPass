@@ -54,7 +54,7 @@ const StyledSelect = styled.select`
   margin: 5px 0px;
   font-size: 18px;
   padding: 8px;
-  border: 2px solid lightblue;
+  border: 2px solid grey;
   border-radius: 10px;
   background-color: white; /* Light grey background */
 `;
