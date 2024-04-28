@@ -13,6 +13,7 @@ export interface AppContextProps {
   api: string;
   selectedLevel: string;
   setSelectedLevel: React.Dispatch<React.SetStateAction<string>>;
+  getNewUid: () => void;
   prompt: (prompt: string) => Promise<string>;
   streamPrompt: (prompt: string) => Promise<ReadableStream<string>>;
   messages: string[];
@@ -35,33 +36,8 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
   const api = "http://192.168.1.83:9090"; // à transformer en state
   const [selectedLevel, setSelectedLevel] = useState("1");
   const [messages, setMessages] = useState<string[]>([]);
-  const user_id = uid();
-
-  const prompt = useCallback(
-    (prompt: string): Promise<string> =>
-      fetch(`${api}/prompt`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          level: selectedLevel,
-          prompt,
-          user_id,
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              "Network response from fast api was not ok when prompting"
-            );
-          }
-          return response.json(); // Parse JSON data from the response
-        })
-        .then((value) => value)
-        .catch((error) => console.log(error)),
-    [selectedLevel, user_id]
-  );
+  const [userId, setUserId] = useState(uid());
+  const getNewUid = useCallback(() => setUserId(uid()), []);
 
   const streamPrompt = useCallback(
     async (prompt: string) => {
@@ -73,7 +49,7 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
         body: JSON.stringify({
           level: selectedLevel,
           prompt,
-          user_id,
+          user_id: userId,
         }),
       }).then((response) => {
         if (!response.ok) {
@@ -88,7 +64,7 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
       });
       return readableStream.pipeThrough<string>(new TextDecoderStream());
     },
-    [selectedLevel, user_id]
+    [selectedLevel, userId]
   );
 
   const value = useMemo(
@@ -96,12 +72,12 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
       api,
       selectedLevel,
       setSelectedLevel,
-      prompt,
+      getNewUid,
       streamPrompt,
       messages,
       setMessages,
     }),
-    [selectedLevel, prompt, streamPrompt, messages, setMessages]
+    [selectedLevel, streamPrompt, messages, setMessages, getNewUid]
   );
 
   // to be put in a .tsx file!

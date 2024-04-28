@@ -7,18 +7,15 @@ import reactLogo from "@/assets/images/react.svg";
 import { ConversationDisplay } from "@/components/pages/main/sub/ConversationDisplay";
 import { MessageInput } from "@/components/pages/main/sub/MessageInput";
 import { text } from "stream/consumers";
+import { GuessPassword } from "./sub/GuessPassword";
 
 export interface MainProps extends PropsWithStyles {}
 
 export const Main = () => {
-  const messages = [
-    { sender: "slfjk", text: "ls" },
-    { sender: "slfjk", text: "ls" },
-  ];
-
   return (
     <>
-      <ConversationDisplay messages={messages} />
+      <GuessPassword />
+      <ConversationDisplay />
       <MessageInput />
     </>
   );

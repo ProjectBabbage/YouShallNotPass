@@ -6,15 +6,17 @@ import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 export const LevelSelect = () => {
-  const { api, setSelectedLevel } = useAppContext();
+  const { api, setSelectedLevel, setMessages, getNewUid } = useAppContext();
   const [levels, setLevels] = useState<Level[]>([]);
 
-  const onChange = useCallback(
+  const onChangeLevel = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       console.log("changed level", e.target.value);
       setSelectedLevel(e.target.value);
+      getNewUid();
+      setMessages([]);
     },
-    [setSelectedLevel]
+    [setSelectedLevel, setMessages, getNewUid]
   );
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export const LevelSelect = () => {
   }, [api]);
 
   return (
-    <StyledSelect onChange={onChange}>
+    <StyledSelect onChange={onChangeLevel}>
       {levels.map((level) => (
         <option key={level.id} value={level.id}>
           {level.name}

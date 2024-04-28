@@ -18,7 +18,9 @@ export const ConversationDisplay = () => {
 };
 
 /* ------------- Styled components ------------- */
-const StyledConversation = styled.div``;
+const StyledConversation = styled.div`
+  padding-bottom: 15vh;
+`;
 const StyledMessage = styled.div<{ isPlayer: boolean }>`
   padding: 10px;
   background-color: ${({ isPlayer, theme }) =>
