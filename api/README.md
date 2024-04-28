@@ -9,6 +9,13 @@ poetry install
 
 Any following commands or interaction with the project should be executed in the venv created with `poetry shell`.
 
+## Ollama server
+
+For the api server to be able to access ollama, you need to run this on the same machine:
+```
+OLLAMA_ORIGINS=* OLLAMA_HOST=0.0.0.0:11434 ollama serve
+```
+
 ## Run with livereload:
 
 Run the api with hot reloading:
