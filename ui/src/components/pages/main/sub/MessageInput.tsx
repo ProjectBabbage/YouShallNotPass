@@ -19,6 +19,7 @@ export const MessageInput = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     console.log("inputed:", inputValue);
+    setInputValue(""); // Clear input after submit
     setMessages((previous) => [...previous, inputValue, ""]);
     let message = "";
     const tokenStream = await streamPrompt(inputValue);
@@ -31,8 +32,6 @@ export const MessageInput = () => {
         return newMessages;
       });
     }
-
-    setInputValue(""); // Clear input after submit
   };
 
   return (
