@@ -11,8 +11,6 @@ import { text } from "stream/consumers";
 export interface MainProps extends PropsWithStyles {}
 
 export const Main = () => {
-  const handleMessageSubmit = () => console.log("submitted messages");
-
   const messages = [
     { sender: "slfjk", text: "ls" },
     { sender: "slfjk", text: "ls" },
@@ -21,7 +19,7 @@ export const Main = () => {
   return (
     <>
       <ConversationDisplay messages={messages} />
-      <MessageInput onSubmit={handleMessageSubmit} />
+      <MessageInput />
     </>
   );
 };

@@ -4,7 +4,8 @@ import { Text } from "@/components/common/Text";
 import { PropsWithStyles } from "@/types/styles";
 import { theme } from "@/styles/theme";
 import { HostInput } from "./HostInput";
-import { ModelSelect } from "./ModelSelect";
+import { LevelSelect } from "./LevelSelect";
+import { getClasses } from "@/utils/class";
 
 export interface HeaderProps extends PropsWithStyles {}
 
@@ -15,9 +16,9 @@ export const Header = () => {
   return (
     <HeaderRoot>
       <Text type="M">You Shall Not Pass (PB#5)</Text>
-      <div class="sub-cont">
-	<HostInput onChange={handleHostnameChange} />
-      	<ModelSelect onChange={handleModelChange} />
+      <div className={getClasses("sub-cont")}>
+        <HostInput onChange={handleHostnameChange} />
+        <LevelSelect onChange={handleModelChange} />
       </div>
     </HeaderRoot>
   );
@@ -25,17 +26,16 @@ export const Header = () => {
 
 /* ------------- Styled components ------------- */
 const HeaderRoot = styled.div`
- display: flex;
- justify-content: space-around;
- span {   
-   display: flex; 
-   font-size: 35px;
-   color : #3d3dff;
-   margin: 25px 0px;
-
- }
- .sub-cont {
   display: flex;
-  flex-direction: column;
- }
+  justify-content: space-around;
+  span {
+    display: flex;
+    font-size: 35px;
+    color: #3d3dff;
+    margin: 25px 0px;
+  }
+  .sub-cont {
+    display: flex;
+    flex-direction: column;
+  }
 `;

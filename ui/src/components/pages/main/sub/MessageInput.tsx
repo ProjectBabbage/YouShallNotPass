@@ -1,22 +1,29 @@
 // Props: onSubmit (function)
 // State: inputValue (text of the current prompt)
 
+import { useAppContext } from "@/contexts/app.context";
 import { PropsWithStyles } from "@/types/styles";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 // Handlers: handleInputChange, handleSubmit
-export interface MessageInputProps extends PropsWithStyles {
-  onSubmit: (value: string) => void;
-}
+export interface MessageInputProps extends PropsWithStyles {}
 
-export const MessageInput = ({ onSubmit }: MessageInputProps) => {
+export const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
+  const { prompt, streamPrompt } = useAppContext();
 
-  const handleInputChange = (e: any) => setInputValue(e.target.value);
-  const handleSubmit = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setInputValue(e.target.value);
+
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    onSubmit(inputValue);
+    console.log("inputed:", inputValue);
+    const tokenStream = await streamPrompt(inputValue);
+    for await (const token of tokenStream) {
+      console.log(token);
+    }
+
     setInputValue(""); // Clear input after submit
   };
 
