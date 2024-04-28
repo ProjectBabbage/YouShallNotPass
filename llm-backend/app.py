@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
@@ -15,6 +16,7 @@ Base.metadata.create_all(bind=engine)
 class Prompt:
     level: str
     prompt: str
+    user_id: Optional[str] = None
 
 
 app = FastAPI()
@@ -30,9 +32,15 @@ app.add_middleware(
 app.include_router(models_router, prefix="/models", tags=["models"])
 app.include_router(levels_router, prefix="/levels", tags=["levels"])
 
+contexts = {}
+
 
 @app.post("/prompt")
 async def prompt(prompt: Prompt, level_repository: LevelRepository = Depends()):
+    context = None
+    # if prompt.user_id is not None and prompt.user_id in contexts:
+    #    context = contexts[prompt.user_id]
+
     level = level_repository.get(prompt.level)
     if level is None:
         return "Level not found"
@@ -40,16 +48,24 @@ async def prompt(prompt: Prompt, level_repository: LevelRepository = Depends()):
     count = 0
     for model in level.models:
         print(f"{count} -> {current_content}")
-        current_content = ollama.generate(
-            model.name, current_content)['response']
+        result = ollama.generate(model.name, current_content)
+        current_content = result['response']
+        # if prompt.user_id is not None:
+        #    contexts[prompt.user_id] = result['context']
         count += 1
     print(f"{count} -> {current_content}")
     return current_content
 
 
 async def stream_generator(stream):
+    # print parts in a single line until the last one
     for chunk in stream:
-        yield chunk['response']
+        part = chunk['response']
+        if part:
+            print(part, end='')
+        else:
+            print()
+        yield part
 
 
 @app.post("/prompt-stream")
