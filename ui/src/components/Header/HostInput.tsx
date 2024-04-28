@@ -11,7 +11,7 @@ export interface HostInputProps extends PropsWithStyles {
 
 export const HostInput = ({ onChange }: HostInputProps) => {
   const { api } = useAppContext();
-  return <input type="text" placeholder={api} onChange={onChange} disabled />;
+  return <StyledInput type="text" placeholder={api} onChange={onChange} disabled />;
 };
 
 const StyledInput = styled.input`
