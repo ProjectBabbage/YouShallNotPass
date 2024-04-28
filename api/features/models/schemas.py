@@ -7,7 +7,7 @@ class ModelBase(BaseModel):
     id: int
     name: str
     system_prompt: str
-    is_checked: bool
+    post_check: str
 
     class Config:
         from_attributes = True
@@ -23,3 +23,4 @@ class Model(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
     system_prompt = Column(String)
+    post_check = Column(String)

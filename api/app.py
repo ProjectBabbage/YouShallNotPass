@@ -9,8 +9,6 @@ from features.levels.repository import LevelRepository
 from features.models.router import router as models_router
 from features.levels.router import router as levels_router
 
-Base.metadata.create_all(bind=engine)
-
 
 @dataclass
 class Prompt:
