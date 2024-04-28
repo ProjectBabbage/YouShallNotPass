@@ -30,13 +30,14 @@ class Level(Base):
     name = Column(String)
     answer = Column(String)
     description = Column(String)
-    models = relationship("Model", secondary="m2m_level_model",
-                          order_by="M2MLevelModel.exec_order")
+    models = relationship(
+        "Model", secondary="m2m_level_model", order_by="M2MLevelModel.exec_order"
+    )
 
 
 class M2MLevelModel(Base):
     __tablename__ = "m2m_level_model"
     id = Column(Integer, primary_key=True)
     exec_order = Column(Integer)
-    level_id = Column(Integer, ForeignKey('levels.id'))
-    model_id = Column(Integer, ForeignKey('models.id'))
+    level_id = Column(Integer, ForeignKey("levels.id"))
+    model_id = Column(Integer, ForeignKey("models.id"))

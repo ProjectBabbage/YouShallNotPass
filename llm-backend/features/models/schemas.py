@@ -7,6 +7,7 @@ class ModelBase(BaseModel):
     id: int
     name: str
     system_prompt: str
+    is_checked: bool
 
     class Config:
         from_attributes = True

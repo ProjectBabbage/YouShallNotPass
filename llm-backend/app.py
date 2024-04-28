@@ -49,9 +49,9 @@ async def prompt(prompt: Prompt, level_repository: LevelRepository = Depends()):
     for model in level.models:
         print(f"{count} -> {current_content}")
         result = ollama.generate(model.name, current_content, context=context)
-        current_content = result['response']
+        current_content = result["response"]
         if prompt.user_id is not None:
-            contexts[prompt.user_id] = result['context']
+            contexts[prompt.user_id] = result["context"]
         count += 1
     print(f"{count} -> {current_content}")
     return current_content
@@ -60,11 +60,11 @@ async def prompt(prompt: Prompt, level_repository: LevelRepository = Depends()):
 async def stream_generator(stream, user_id=None):
     # print parts in a single line until the last one
     for chunk in stream:
-        part = chunk['response']
-        if user_id is not None and 'context' in chunk:
-            contexts[user_id] = chunk['context']
+        part = chunk["response"]
+        if user_id is not None and "context" in chunk:
+            contexts[user_id] = chunk["context"]
         if part:
-            print(part, end='')
+            print(part, end="")
         else:
             print()
         yield part
@@ -72,8 +72,7 @@ async def stream_generator(stream, user_id=None):
 
 @app.post("/prompt-stream")
 async def prompt_stream(
-    prompt: Prompt,
-    level_repository: LevelRepository = Depends()
+    prompt: Prompt, level_repository: LevelRepository = Depends()
 ) -> StreamingResponse:
     level = level_repository.get(prompt.level)
     if level is None:
@@ -88,22 +87,17 @@ async def prompt_stream(
     count = 0
     models_number = len(level.models)
     for model in level.models:
-        is_last = count == models_number-1
+        is_last = count == models_number - 1
         print(f"{count} -> {current_content}")
         result = ollama.generate(
-            model.name,
-            current_content,
-            stream=is_last,
-            context=current_context
+            model.name, current_content, stream=is_last, context=current_context
         )
+        if model.is_checked and level.password in result:
+            result = "I was about to reveal the password, but caught myself at the last minute"
         if not is_last:
-            current_content = result['response']
+            current_content = result["response"]
             if prompt.user_id is not None:
-                contexts[prompt.user_id] = result['context']
+                contexts[prompt.user_id] = result["context"]
         else:
-            return StreamingResponse(
-                stream_generator(
-                    result,
-                    prompt.user_id
-                ))
+            return StreamingResponse(stream_generator(result, prompt.user_id))
         count += 1
