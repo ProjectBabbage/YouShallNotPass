@@ -6,19 +6,20 @@ import { theme } from "@/styles/theme";
 import { HostInput } from "./HostInput";
 import { LevelSelect } from "./LevelSelect";
 import { getClasses } from "@/utils/class";
+import { useAppContext } from "@/contexts/app.context";
 
 export interface HeaderProps extends PropsWithStyles {}
 
 export const Header = () => {
+  const { setSelectedLevel } = useAppContext();
   const handleHostnameChange = () => console.log("hostname changed");
-  const handleModelChange = () => console.log("model changed!");
 
   return (
     <HeaderRoot>
       <Text type="M">You Shall Not Pass (PB#5)</Text>
       <div className={getClasses("sub-cont")}>
         <HostInput onChange={handleHostnameChange} />
-        <LevelSelect onChange={handleModelChange} />
+        <LevelSelect />
       </div>
     </HeaderRoot>
   );

@@ -23,4 +23,5 @@ export const Layout = ({ children }: LayoutProps) => {
 const StyledDiv = styled.div`
   position: relative;
   min-height: 100vh;
+  padding-bottom: 15vh;
 `;

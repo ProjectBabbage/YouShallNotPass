@@ -11,7 +11,7 @@ export interface MessageInputProps extends PropsWithStyles {}
 
 export const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
-  const { prompt, streamPrompt } = useAppContext();
+  const { prompt, streamPrompt, setMessages } = useAppContext();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);
@@ -19,9 +19,17 @@ export const MessageInput = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     console.log("inputed:", inputValue);
+    setMessages((previous) => [...previous, inputValue, ""]);
+    let message = "";
     const tokenStream = await streamPrompt(inputValue);
     for await (const token of tokenStream) {
-      console.log(token);
+      // tokenStrem type issue to fix
+      message += token;
+      setMessages((previous) => {
+        const newMessages = [...previous];
+        newMessages[newMessages.length - 1] = message;
+        return newMessages;
+      });
     }
 
     setInputValue(""); // Clear input after submit
@@ -53,16 +61,15 @@ const StyledForm = styled.form`
 const StyledButton = styled.button`
   border: none;
   background-color: #3d3dff;
-  font-size:20px;
+  font-size: 20px;
   color: white;
   padding: 8px;
   border-radius: 10px;
-
 `;
 
 const StyledInput = styled.input`
   background-color: #f3f3f3; /* Light grey background */
-  padding: 8px; 
+  padding: 8px;
 
   color: #333; /* Dark grey text */
   border: 2px solid lightblue; /* Light grey border */

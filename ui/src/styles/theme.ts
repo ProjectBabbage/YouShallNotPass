@@ -32,6 +32,7 @@ export const theme = {
   colors: {
     // Define you color palette
     primary: "black",
+    player: "#7A96B8",
   },
   mixins: {
     // Define your text mixins

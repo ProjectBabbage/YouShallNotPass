@@ -12,8 +12,11 @@ import { uid } from "uid";
 export interface AppContextProps {
   api: string;
   selectedLevel: string;
+  setSelectedLevel: React.Dispatch<React.SetStateAction<string>>;
   prompt: (prompt: string) => Promise<string>;
   streamPrompt: (prompt: string) => Promise<ReadableStream<string>>;
+  messages: string[];
+  setMessages: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -29,9 +32,11 @@ export const useAppContext = () => {
 export interface AppProviderProps extends PropsWithChildren {}
 
 const AppContextProvider = memo(({ children }: AppProviderProps) => {
-  const api = "http://192.168.1.83:9090"; // à transformer en stateuid();
+  const api = "http://192.168.1.83:9090"; // à transformer en state
   const [selectedLevel, setSelectedLevel] = useState("1");
+  const [messages, setMessages] = useState<string[]>([]);
   const user_id = uid();
+
   const prompt = useCallback(
     (prompt: string): Promise<string> =>
       fetch(`${api}/prompt`, {
@@ -66,7 +71,7 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          level: "5",
+          level: selectedLevel,
           prompt,
           user_id,
         }),
@@ -83,17 +88,20 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
       });
       return readableStream.pipeThrough<string>(new TextDecoderStream());
     },
-    [user_id]
+    [selectedLevel, user_id]
   );
 
   const value = useMemo(
     () => ({
       api,
       selectedLevel,
+      setSelectedLevel,
       prompt,
       streamPrompt,
+      messages,
+      setMessages,
     }),
-    [selectedLevel, prompt, streamPrompt]
+    [selectedLevel, prompt, streamPrompt, messages, setMessages]
   );
 
   // to be put in a .tsx file!
