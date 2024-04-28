@@ -1,15 +1,8 @@
-// Props: messages (array of message objects)
-
 import { useAppContext } from "@/contexts/app.context";
 import { PropsWithStyles } from "@/types/styles";
 import { getClasses } from "@/utils/class";
 import styled from "@emotion/styled";
 import loaderSvg from "@/assets/images/loader.svg";
-
-// Return: Div that maps over messages to display each one
-export interface ConversationDisplayProps extends PropsWithStyles {
-  messages: { sender: string; text: string }[];
-}
 
 export const ConversationDisplay = () => {
   const { messages } = useAppContext();
@@ -29,5 +22,5 @@ const StyledConversation = styled.div``;
 const StyledMessage = styled.div<{ isPlayer: boolean }>`
   padding: 10px;
   background-color: ${({ isPlayer, theme }) =>
-    isPlayer ? "#7A96B8" : "#CAD5E2"};
+    isPlayer ? "#7A96B8" : "#CAD5E2"}; // Use theme
 `;

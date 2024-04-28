@@ -1,17 +1,13 @@
-// Props: onSubmit (function)
-// State: inputValue (text of the current prompt)
-
 import { useAppContext } from "@/contexts/app.context";
 import { PropsWithStyles } from "@/types/styles";
 import styled from "@emotion/styled";
 import { SyntheticEvent, useState } from "react";
 
-// Handlers: handleInputChange, handleSubmit
 export interface MessageInputProps extends PropsWithStyles {}
 
 export const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
-  const { prompt, streamPrompt, setMessages } = useAppContext();
+  const { streamPrompt, setMessages } = useAppContext();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);

@@ -1,6 +1,3 @@
-// Props: onChange (function)
-// Return: input element for hostname with onChange handler
-
 import { useAppContext } from "@/contexts/app.context";
 import { PropsWithStyles } from "@/types/styles";
 import styled from "@emotion/styled";
@@ -11,7 +8,9 @@ export interface HostInputProps extends PropsWithStyles {
 
 export const HostInput = ({ onChange }: HostInputProps) => {
   const { api } = useAppContext();
-  return <StyledInput type="text" placeholder={api} onChange={onChange} disabled />;
+  return (
+    <StyledInput type="text" placeholder={api} onChange={onChange} disabled />
+  );
 };
 
 const StyledInput = styled.input`

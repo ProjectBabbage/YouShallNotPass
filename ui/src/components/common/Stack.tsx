@@ -57,7 +57,7 @@ export const Stack = memo(
       <StyledStack
         {...props}
         cursor={cursor}
-        className={getClasses([className, "stack"])}
+        className={getClasses(className, "stack")}
         direction={direction}
         justify={flexPreprend(justify)}
         align={flexPreprend(align)}

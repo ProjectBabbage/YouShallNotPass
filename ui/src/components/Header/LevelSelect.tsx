@@ -2,7 +2,7 @@
 
 import { useAppContext } from "@/contexts/app.context";
 import { Level } from "@/types/levels";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 export const LevelSelect = () => {

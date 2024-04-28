@@ -11,7 +11,6 @@ import { useAppContext } from "@/contexts/app.context";
 export interface HeaderProps extends PropsWithStyles {}
 
 export const Header = () => {
-  const { setSelectedLevel } = useAppContext();
   const handleHostnameChange = () => console.log("hostname changed");
 
   return (
