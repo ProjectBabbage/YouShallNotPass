@@ -14,7 +14,6 @@ export interface AppContextProps {
   selectedLevel: string;
   setSelectedLevel: React.Dispatch<React.SetStateAction<string>>;
   getNewUid: () => void;
-  prompt: (prompt: string) => Promise<string>;
   streamPrompt: (prompt: string) => Promise<ReadableStream<string>>;
   messages: string[];
   setMessages: React.Dispatch<React.SetStateAction<string[]>>;
@@ -33,7 +32,8 @@ export const useAppContext = () => {
 export interface AppProviderProps extends PropsWithChildren {}
 
 const AppContextProvider = memo(({ children }: AppProviderProps) => {
-  const api = "http://192.168.1.83:9090"; // à transformer en state
+  // const api = "http://192.168.1.83:9090"; // à transformer en state
+  const api = "http://localhost:8000"; // à transformer en state
   const [selectedLevel, setSelectedLevel] = useState("1");
   const [messages, setMessages] = useState<string[]>([]);
   const [userId, setUserId] = useState(uid());

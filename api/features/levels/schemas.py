@@ -18,7 +18,7 @@ class LevelBase(BaseModel):
     name: str
     models: List[ModelBase]
     answer: str
-    description: Optional[str] = None
+    description: str
 
     class Config:
         from_attributes = True

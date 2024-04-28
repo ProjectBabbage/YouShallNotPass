@@ -8,7 +8,7 @@ from core.db import Base, engine
 from features.levels.repository import LevelRepository
 from features.models.router import router as models_router
 from features.levels.router import router as levels_router
-
+from post_checks import post_checks
 
 @dataclass
 class Prompt:
@@ -68,6 +68,7 @@ async def stream_generator(stream, user_id=None):
         yield part
 
 
+
 @app.post("/prompt-stream")
 async def prompt_stream(
     prompt: Prompt, level_repository: LevelRepository = Depends()
@@ -82,20 +83,20 @@ async def prompt_stream(
         current_context = contexts[prompt.user_id]
 
     current_content = prompt.prompt
-    count = 0
-    models_number = len(level.models)
-    for model in level.models:
-        is_last = count == models_number - 1
+
+    for count, model in enumerate(level.models):
+        is_last = count == len(level.models) - 1
         print(f"{count} -> {current_content}")
         result = ollama.generate(
             model.name, current_content, stream=is_last, context=current_context
         )
-        if model.is_checked and level.password in result:
-            result = "I was about to reveal the password, but caught myself at the last minute"
+        # TODO apply a check token by token, conserving the stream (else it break the below stream)
+        # if model.post_check in post_checks.keys() and post_checks[model.post_check](result, level.answer):
+        #     result = "I was about to reveal the password, but caught myself at the last minute"
         if not is_last:
             current_content = result["response"]
             if prompt.user_id is not None:
                 contexts[prompt.user_id] = result["context"]
         else:
             return StreamingResponse(stream_generator(result, prompt.user_id))
-        count += 1
+

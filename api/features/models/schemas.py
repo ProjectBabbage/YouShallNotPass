@@ -16,6 +16,7 @@ class ModelBase(BaseModel):
 class CreateModel(BaseModel):
     name: str
     system_prompt: str
+    post_check: str
 
 
 class Model(Base):
