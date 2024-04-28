@@ -7,6 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { uid } from "uid";
 
 export interface AppContextProps {
   api: string;
@@ -28,8 +29,9 @@ export const useAppContext = () => {
 export interface AppProviderProps extends PropsWithChildren {}
 
 const AppContextProvider = memo(({ children }: AppProviderProps) => {
-  const api = "http://192.168.1.83:9090"; // à transformer en state
+  const api = "http://192.168.1.83:9090"; // à transformer en stateuid();
   const [selectedLevel, setSelectedLevel] = useState("1");
+  const user_id = uid();
   const prompt = useCallback(
     (prompt: string): Promise<string> =>
       fetch(`${api}/prompt`, {
@@ -40,6 +42,7 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
         body: JSON.stringify({
           level: selectedLevel,
           prompt,
+          user_id,
         }),
       })
         .then((response) => {
@@ -52,33 +55,36 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
         })
         .then((value) => value)
         .catch((error) => console.log(error)),
-    [selectedLevel]
+    [selectedLevel, user_id]
   );
 
-  const streamPrompt = useCallback(async (prompt: string) => {
-    const decoder = new TextDecoder();
-    const readableStream = await fetch(`${api}/prompt-stream`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        level: "5",
-        prompt,
-      }),
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          "Network response from fast api was not ok when prompting"
-        );
-      }
-      if (response.body === null) {
-        throw new Error("Response body is empty!");
-      }
-      return response.body;
-    });
-    return readableStream.pipeThrough<string>(new TextDecoderStream());
-  }, []);
+  const streamPrompt = useCallback(
+    async (prompt: string) => {
+      const readableStream = await fetch(`${api}/prompt-stream`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          level: "5",
+          prompt,
+          user_id,
+        }),
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            "Network response from fast api was not ok when prompting"
+          );
+        }
+        if (response.body === null) {
+          throw new Error("Response body is empty!");
+        }
+        return response.body;
+      });
+      return readableStream.pipeThrough<string>(new TextDecoderStream());
+    },
+    [user_id]
+  );
 
   const value = useMemo(
     () => ({
