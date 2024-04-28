@@ -46,11 +46,21 @@ export const GuessPassword = () => {
 
 /* ------------- Styled components ------------- */
 const GuessPasswordRoot = styled(Stack)`
-  border: 1px solid orange;
+  border: 3px solid grey;
   border-radius: 5px;
   margin: 10px;
+  padding:10px;
 `;
 
-const LevelDescription = styled.div``;
+const LevelDescription = styled.div`
+  font-family:Gandalf;
+  font-size:2vw;
+  margin-bottom:10px;
+`;
 
-const GuessPasswordInput = styled.input``;
+const GuessPasswordInput = styled.input`
+  font-family:Gandalf;
+  font-size:1,5vw;
+  min-width:20vw;
+  padding:5px;
+`;

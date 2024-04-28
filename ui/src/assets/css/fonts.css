@@ -4,3 +4,8 @@
     display: block;
 }
 
+@font-face {
+    font-family: "Gandalf";
+    src: url(@/assets/fonts/MorrisRoman-Black.ttf);
+    display: block;
+}

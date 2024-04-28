@@ -51,17 +51,17 @@ export const theme = {
           font-weight: 400;
           letter-spacing: 0px;
           line-height: 140%;
-        `,
-    M: `
-          font-family: Open Sans, Helvetica;
-          font-size: 18px;
-          font-style: normal;
-          font-weight: 400;
-          letter-spacing: 0px;
-          line-height: 140%;
           `,
-    L: `
-          font-family: Open Sans, Helvetica;
+      M: `
+            font-family: Open Sans, Helvetica;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            letter-spacing: 0px;
+            line-height: 140%;
+            `,
+      L: `
+            font-family: Open Sans, Helvetica;
           font-size: 20px;
           font-style: normal;
           font-weight: 400;
@@ -69,7 +69,7 @@ export const theme = {
           line-height: 140%;
           `,
     h1: `
-          font-family: Open Sans, Helvetica;
+          font-family: Gandalf, Helvetica;
           font-size: 96px;
           font-style: normal;
           font-weight: 300;
@@ -77,7 +77,7 @@ export const theme = {
           line-height: 110%;
         `,
     h2: `
-        font-family: Open Sans, Helvetica;
+        font-family: Gandalf, Helvetica;
         font-size: 80px;
         font-style: normal;
         font-weight: 300;
