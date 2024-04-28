@@ -1,12 +1,11 @@
-# Template for React project
+## Install
 
-- React
-- Typescript
-- Emotion (styled component)
-- Eslint & Prettier rightly configured
-- Clean hierarchy of folders & files
-- A theme defined
-- Some useful hooks
-- And a few useful base components
+```
+yarn
+```
 
-TODO: make a cookie-cutter template of this
+## Run the dev web server
+
+```
+yarn dev
+```

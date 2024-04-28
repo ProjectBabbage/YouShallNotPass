@@ -1,9 +1,10 @@
 [tool.poetry]
-name = "llm-backend"
+name = "api"
 version = "0.1.0"
 description = ""
 authors = ["Elias Sebbar <elias@demisel.space>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.8"
