@@ -1,5 +1,5 @@
 from core.db import Base
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 from features.models.schemas import ModelBase
 from sqlalchemy import Column, Integer, String, ForeignKey
@@ -10,6 +10,7 @@ class LevelCreate(BaseModel):
     name: str
     models: List[int]
     answer: str
+    description: str
 
 
 class LevelBase(BaseModel):
@@ -17,6 +18,7 @@ class LevelBase(BaseModel):
     name: str
     models: List[ModelBase]
     answer: str
+    description: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -27,6 +29,7 @@ class Level(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     answer = Column(String)
+    description = Column(String)
     models = relationship("Model", secondary="m2m_level_model",
                           order_by="M2MLevelModel.exec_order")
 
