@@ -19,10 +19,14 @@ export const ConversationDisplay = () => {
 
 /* ------------- Styled components ------------- */
 const StyledConversation = styled.div`
+  padding: 10px;
   padding-bottom: 15vh;
 `;
 const StyledMessage = styled.div<{ isPlayer: boolean }>`
+  margin: 5px;
+  border-radius: 10px;
   padding: 10px;
   background-color: ${({ isPlayer, theme }) =>
     isPlayer ? "#7A96B8" : "#CAD5E2"}; // Use theme
+  text-align: ${({ isPlayer }) => (isPlayer ? "end" : "start")};
 `;

@@ -17,7 +17,6 @@ export const LevelSelect = () => {
     },
     [setSelectedLevel, setMessages, getNewUid]
   );
-  useEffect(() => console.log("lllevels", levels), [levels]);
 
   return (
     <StyledSelect onChange={onChangeLevel}>

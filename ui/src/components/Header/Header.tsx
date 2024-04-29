@@ -27,7 +27,7 @@ export const Header = () => {
         </Text>
       </TextContainer>
       <div className={getClasses("sub-cont")}>
-        <HostInput onChange={handleHostnameChange} />
+        {/* <HostInput onChange={handleHostnameChange} /> */}
         <LevelSelect />
       </div>
     </HeaderRoot>
@@ -62,26 +62,32 @@ const HeaderRoot = styled.div`
 
 const Container = styled.div`
   display: flex;
-  align-items:center;
-  height:100%;
-  height:300px;
-  
-  }
-  
-  img{
-    max-height:100%;
-    max-width:100%;
-    &:hover{
+  align-items: center;
+  height: 100%;
+  height: 300px;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    &:hover {
       animation-name: bounce;
       animation-duration: 2s;
+    }
+    @keyframes bounce {
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
       }
-      @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-        40% {transform: translateY(-30px);}
-        60% {transform: translateY(-15px);}
+      40% {
+        transform: translateY(-30px);
       }
+      60% {
+        transform: translateY(-15px);
       }
-  }
+    }
   }
 `;
 const TextContainer = styled.div`

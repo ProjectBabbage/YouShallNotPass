@@ -99,7 +99,7 @@ const AppContextProvider = memo(({ children }: AppProviderProps) => {
       messages,
       setMessages,
     }),
-    [selectedLevel, streamPrompt, messages, setMessages, getNewUid]
+    [selectedLevel, streamPrompt, messages, setMessages, getNewUid, levels]
   );
 
   // to be put in a .tsx file!

@@ -1,6 +1,7 @@
 export type Level = {
   id: number;
   name: string;
+  description: string;
   models: [
     {
       id: number;
@@ -8,5 +9,4 @@ export type Level = {
       system_prompt: string;
     },
   ];
-  description: string;
 };
