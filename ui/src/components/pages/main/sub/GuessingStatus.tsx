@@ -6,6 +6,7 @@ import { theme } from "@/styles/theme";
 import checkSvg from "@/assets/images/check.svg";
 import crossSvg from "@/assets/images/cross.svg";
 import { getClasses } from "@/utils/class";
+import { BalrogGif } from "./BalrogGif";
 
 export interface GuessingStatusProps extends PropsWithStyles {
   isGuessed: boolean | null;
@@ -15,18 +16,16 @@ export const GuessingStatus = ({ isGuessed }: GuessingStatusProps) => {
   return (
     <GuessingStatusRoot>
       {isGuessed === true && (
-        <Stack gap={2}>
-          <img src={checkSvg} />
-          <p>Nice, you guessed it! <br/>You are still a fool, though.</p>
-          <img className={getClasses("balrog")} alt="balrog" src="/src/assets/images/balrog.gif"></img>
+        <Stack gap={5} align="center">
+          <StatusImg src={checkSvg} />
+          <span>Nice! You guessed it! </span>
+          <BalrogGif />
         </Stack>
-
       )}
       {isGuessed === false && (
-        <Stack>
-          <img src={crossSvg} />
-          <p>Wrong guess, you fool.</p>
-          <img className={getClasses("balrog")} alt="balrog" src="/src/assets/images/balrog.gif"></img>
+        <Stack align="center" gap={5}>
+          <StatusImg src={crossSvg} />
+          <span>Wrong guess, you fool.</span>
         </Stack>
       )}
     </GuessingStatusRoot>
@@ -35,10 +34,9 @@ export const GuessingStatus = ({ isGuessed }: GuessingStatusProps) => {
 
 /* ------------- Styled components ------------- */
 const GuessingStatusRoot = styled.div`
-  padding:5px;
-  .balrog{
-    height:100%;
-    border-radius:0px
-    width:100%;
-  }
+  padding: 5px;
+`;
+
+const StatusImg = styled.img`
+  height: 1em;
 `;

@@ -63,11 +63,10 @@ const StyledButton = styled.button`
 `;
 
 const StyledInput = styled.input`
-  background-color: #f3f3f3; /* Light grey background */
+  background-color: #f3f3f3;
   padding: 8px;
-
-  color: #333; /* Dark grey text */
-  border: 2px solid lightblue; /* Light grey border */
+  color: #333;
+  border: 2px solid lightblue;
   border-radius: 10px;
   outline: none;
   width: 80%;

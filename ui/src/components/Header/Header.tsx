@@ -8,7 +8,6 @@ import { LevelSelect } from "./LevelSelect";
 import { getClasses } from "@/utils/class";
 import { useAppContext } from "@/contexts/app.context";
 
-
 export interface HeaderProps extends PropsWithStyles {}
 
 export const Header = () => {
@@ -17,11 +16,15 @@ export const Header = () => {
   return (
     <HeaderRoot>
       <Container>
-        <img alt="gandalf logo" src="/src/assets/images/gandalf.jpg"/>
+        <img alt="gandalf logo" src="/src/assets/images/gandalf.jpg" />
       </Container>
       <TextContainer>
-        <Text className={getClasses("title-text")} type="h1" >Thou Shall Not Pass!</Text>
-        <Text className={getClasses("subtitle-text")} type="h2">You are the balrog, and you shall pass!</Text>
+        <Text className={getClasses("title-text")} type="h1">
+          Thou Shall Not Pass!
+        </Text>
+        <Text className={getClasses("subtitle-text")} type="h2">
+          You are the balrog, and you shall pass!
+        </Text>
       </TextContainer>
       <div className={getClasses("sub-cont")}>
         <HostInput onChange={handleHostnameChange} />
@@ -35,26 +38,25 @@ export const Header = () => {
 const HeaderRoot = styled.div`
   display: flex;
   justify-content: space-around;
-  align-items:center;
+  align-items: center;
   span {
     display: flex;
     font-size: 35px;
     color: grey;
     margin: 25px 0px;
   }
-  
-  .title-text{
-    font-size:4vw;
+
+  .title-text {
+    font-size: 4vw;
   }
 
-  .subtitle-text{
-    font-size:3vw;
+  .subtitle-text {
+    font-size: 3vw;
   }
 
   .sub-cont {
     display: flex;
     flex-direction: column;
-    
   }
 `;
 
@@ -67,7 +69,6 @@ const Container = styled.div`
   }
   
   img{
-    border-radius:50%;
     max-height:100%;
     max-width:100%;
     &:hover{
@@ -82,10 +83,9 @@ const Container = styled.div`
       }
   }
   }
-`
-const TextContainer= styled.div`
-  display:flex;
-  flex-direction:column;
-  align-items:center
-`
-
+`;
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

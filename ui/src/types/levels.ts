@@ -8,4 +8,5 @@ export type Level = {
       system_prompt: string;
     },
   ];
+  description: string;
 };

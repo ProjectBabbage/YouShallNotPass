@@ -6,8 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 export const LevelSelect = () => {
-  const { api, setSelectedLevel, setMessages, getNewUid } = useAppContext();
-  const [levels, setLevels] = useState<Level[]>([]);
+  const { setSelectedLevel, setMessages, getNewUid, levels } = useAppContext();
 
   const onChangeLevel = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -18,24 +17,7 @@ export const LevelSelect = () => {
     },
     [setSelectedLevel, setMessages, getNewUid]
   );
-
-  useEffect(() => {
-    fetch(`${api}/levels/`)
-      .then((response) => {
-        // Check if the request was successful
-        if (!response.ok) {
-          throw new Error("Network response from fast api was not ok");
-        }
-        return response.json(); // Parse JSON data from the response
-      })
-      .then((levels) => {
-        console.log("Level fetched", levels);
-        setLevels(levels);
-      })
-      .catch((reason) =>
-        console.log("FAILED to request levels : reason ", reason)
-      );
-  }, [api]);
+  useEffect(() => console.log("lllevels", levels), [levels]);
 
   return (
     <StyledSelect onChange={onChangeLevel}>
@@ -44,7 +26,6 @@ export const LevelSelect = () => {
           {level.name}
         </option>
       ))}
-      {/* Add more models as needed */}
     </StyledSelect>
   );
 };
