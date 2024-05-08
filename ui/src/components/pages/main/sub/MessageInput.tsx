@@ -19,6 +19,8 @@ export const MessageInput = () => {
     setMessages((previous) => [...previous, inputValue, ""]);
     let message = "";
     const tokenStream = await streamPrompt(inputValue);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     for await (const token of tokenStream) {
       // tokenStrem type issue to fix
       message += token;

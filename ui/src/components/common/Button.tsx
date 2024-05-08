@@ -13,7 +13,7 @@ export interface ButtonProps extends PropsWithStyles {
 
 export const Button = ({ className, content, onClick }: ButtonProps) => {
   return (
-    <ButtonRoot onClick={onClick} className={getClasses(["button", className])}>
+    <ButtonRoot onClick={onClick} className={getClasses("button", className)}>
       <Text type="button" className="text">
         {content}
       </Text>
